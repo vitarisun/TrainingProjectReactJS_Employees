@@ -5,7 +5,9 @@ class EmployeesListItem extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      increase: false
+      increase: false,
+      seeStar: false
+
     }
   }
 
@@ -15,17 +17,29 @@ class EmployeesListItem extends Component{
     }))
   }
 
+  onSeeStar = () => {
+    this.setState(({seeStar}) => ({
+      seeStar: !seeStar
+    }))
+  }
+
+
+
 render() {
   const{name, salary} = this.props
-  const {increase} = this.state;
+  const {increase, seeStar} = this.state;
+
   let className = 'list-group-item d-flex justify-content-between';
   if (increase) {
     className += ' increase';
   }
+  if (seeStar) {
+    className += ' like';
+  }
 
   return (
     <li className={className}>
-      <span className="list-group-item-label">{name}</span>
+      <span className="list-group-item-label" onClick={this.onSeeStar}>{name}</span>
       <input
         type="text"
         className="list-group-item-input"
@@ -33,6 +47,7 @@ render() {
       />
       <div className="d-flex justify-content-center align-items-center">
         <button type="button" className="btn-cookie btn-sm" onClick={this.onIncrease}>
+
           <i className="fas fa-cookie"></i>
         </button>
 

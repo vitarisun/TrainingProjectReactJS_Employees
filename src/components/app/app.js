@@ -37,6 +37,21 @@ class App extends Component {
     });
   };
 
+  addEmployees = (name, salary) => {
+    const newEmployees = {
+      name,
+      salary,
+      increase: false,
+      id: genID(),
+    };
+    this.setState(({ data }) => {
+      const newArr = [...data, newEmployees];
+      return {
+        data: newArr,
+      };
+    });
+  };
+
   render() {
     return (
       <div className="app">
@@ -46,10 +61,14 @@ class App extends Component {
           <AppFilter />
         </div>
         <EmployeesList data={this.state.data} onDelete={this.deleteItem} />
-        <EmployeesAddForm />
+        <EmployeesAddForm onAdd={this.addEmployees} />
       </div>
     );
   }
+}
+
+function genID() {
+  return Math.floor(Math.random() * 100000);
 }
 
 export default App;

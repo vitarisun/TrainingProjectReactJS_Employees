@@ -13,9 +13,27 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        { name: 'John C.', salary: 1000, increase: false, id: 1 },
-        { name: 'Alex M..', salary: 800, increase: true, id: 2 },
-        { name: 'Carl W', salary: 4000, increase: false, id: 3 },
+        {
+          name: 'John C.',
+          salary: 1000,
+          increase: false,
+          seeStar: true,
+          id: 1,
+        },
+        {
+          name: 'Alex M..',
+          salary: 800,
+          increase: true,
+          seeStar: false,
+          id: 2,
+        },
+        {
+          name: 'Carl W',
+          salary: 4000,
+          increase: false,
+          seeStar: false,
+          id: 3,
+        },
       ],
     };
   }
@@ -42,6 +60,7 @@ class App extends Component {
       name,
       salary,
       increase: false,
+      seeStar: false,
       id: genID(),
     };
     this.setState(({ data }) => {
@@ -52,6 +71,36 @@ class App extends Component {
     });
   };
 
+  onToggIncrease = (id) => {
+    // this.setState(({ data }) => {
+    //   const index = data.findIndex((elem) => elem.id === id);
+    //   const old = data[index];
+    //   const newItem = { ...old, increase: !old.increase };
+    //   const newArr = [
+    //     ...data.slice(0, index),
+    //     newItem,
+    //     ...data.slice(index + 1),
+    //   ];
+
+    //   return {
+    //     data: newArr,
+    //   };
+    // });
+
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
+        if (item.id === id) {
+          return { ...item, increase: !item.increase };
+        }
+        return item;
+      }),
+    }));
+  };
+
+  onToggRise = (id) => {
+    console.log(`Rise this ${id}`);
+  };
+
   render() {
     return (
       <div className="app">
@@ -60,7 +109,12 @@ class App extends Component {
           <SearchPanel />
           <AppFilter />
         </div>
-        <EmployeesList data={this.state.data} onDelete={this.deleteItem} />
+        <EmployeesList
+          data={this.state.data}
+          onDelete={this.deleteItem}
+          onToggIncrease={this.onToggIncrease}
+          onToggRise={this.onToggRise}
+        />
         <EmployeesAddForm onAdd={this.addEmployees} />
       </div>
     );

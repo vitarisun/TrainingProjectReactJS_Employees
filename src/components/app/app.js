@@ -18,21 +18,21 @@ class App extends Component {
           salary: 1000,
           increase: false,
           seeStar: true,
-          id: 1,
+          id: genID(),
         },
         {
           name: 'Alex M..',
           salary: 800,
           increase: true,
           seeStar: false,
-          id: 2,
+          id: genID(),
         },
         {
           name: 'Carl W',
           salary: 4000,
           increase: false,
           seeStar: false,
-          id: 3,
+          id: genID(),
         },
       ],
     };
@@ -98,13 +98,23 @@ class App extends Component {
   };
 
   onToggRise = (id) => {
-    console.log(`Rise this ${id}`);
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
+        if (item.id === id) {
+          return { ...item, seeStar: !item.seeStar };
+        }
+        return item;
+      }),
+    }));
   };
 
   render() {
+    const employees = this.state.data.length;
+    const incriced = this.state.data.filter((item) => item.increase).length;
+
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo employees={employees} incriced={incriced} />
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />

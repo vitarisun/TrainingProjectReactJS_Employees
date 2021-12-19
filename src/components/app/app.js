@@ -36,6 +36,7 @@ class App extends Component {
         },
       ],
       term: '',
+      filter: 'toIncrease',
     };
   }
 
@@ -97,18 +98,33 @@ class App extends Component {
     this.setState({ term });
   };
 
+  filterEmp = (items, filter) => {
+    switch (filter) {
+      case 'toIncrease':
+        return items.filter((item) => item.seeStar); // return item.filter(item => if (item.seeStar) return)
+      case 'more1000':
+        return items.filter((item) => item.salary >= 1000);
+      default:
+        return items;
+    }
+  };
+
+  onFilterSelect = (filter) => {
+    this.setState({ filter });
+  };
+
   render() {
-    const { data, term } = this.state;
+    const { data, term, filter } = this.state;
     const employees = this.state.data.length;
     const incriced = this.state.data.filter((item) => item.increase).length;
-    const visibleData = this.searchEmp(data, term);
+    const visibleData = this.filterEmp(this.searchEmp(data, term), filter);
 
     return (
       <div className="app">
         <AppInfo employees={employees} incriced={incriced} />
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <AppFilter />
+          <AppFilter filter={filter} onFilterSelect={this.onFilterSelect} />
         </div>
         <EmployeesList
           data={visibleData}

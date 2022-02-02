@@ -1,6 +1,6 @@
 // import { Component } from 'react';
 import './employers-list-item.css';
-//
+
 const EmployeesListItem = (props) => {
   const { name, salary, onDelete, onToggleProp, increase, seeStar } = props;
 

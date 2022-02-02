@@ -42,15 +42,7 @@ class App extends Component {
 
   deleteItem = (id) => {
     this.setState(({ data }) => {
-      // const index = data.findIndex((elem) => elem.id === id);
 
-      // const before = data.slice(0, index);
-      // const after = data.slice(index + 1);
-      // const newArr = [...before, ...after];
-
-      // return {
-      //   data: newArr,
-      // };
       return {
         data: data.filter((item) => item.id !== id),
       };

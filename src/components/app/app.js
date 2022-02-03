@@ -42,7 +42,6 @@ class App extends Component {
 
   deleteItem = (id) => {
     this.setState(({ data }) => {
-
       return {
         data: data.filter((item) => item.id !== id),
       };
@@ -132,5 +131,4 @@ class App extends Component {
 function genID() {
   return Math.floor(Math.random() * 100000);
 }
-
 export default App;

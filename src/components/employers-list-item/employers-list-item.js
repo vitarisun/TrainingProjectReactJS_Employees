@@ -42,7 +42,6 @@ class EmployeesListItem extends Component {
         <input
           type="text"
           className="list-group-item-input"
-          // defaultValue={salary + '$'}
           value={this.state.salary}
           onChange={this.onSalaryChange}
         />
